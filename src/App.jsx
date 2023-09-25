@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import AllRoutes from "./AllRoutes";
 import { fetchAllQuestion } from "./actions/question";
 import { getAllUsers } from "./actions/users";
+//////////////////////Style///////////////////
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const dispatch = useDispatch();

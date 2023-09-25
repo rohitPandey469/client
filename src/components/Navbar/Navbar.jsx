@@ -9,24 +9,34 @@ import { setCurrentUser } from "../../actions/currentUser";
 import decode from "jwt-decode";
 
 const Navbar = () => {
+  /////////////////For protected Routes////////////////
   const dispatch = useDispatch();
   var User = useSelector((state) => state.currentUserReducer);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const token = User?.token;
+    // console.log("User.token", User?.token);
     if (token) {
       const decodedToken = decode(token);
       // logging out after 1hr
-      if(decodedToken.exp*1000<new Date().getTime()){
-        handleLogout()
+      // console.log(decodedToken.exp * 1000);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        dispatch({ type: "LOGOUT" });
+        navigate("/Auth");
+        dispatch(setCurrentUser(null));
       }
     }
     // On refreshing the profile is disappearing
     // so dispatch here on each refersh
     dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
-  }, []);
+  }, [User?.token]);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (User === null) {
+      navigate("/Auth");
+    }
+  }, [User]);
+  //////////////////////////////////////////////////////////
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -42,14 +52,14 @@ const Navbar = () => {
             <img src={logo} alt="logo" />
           </Link>
           <Link
-            to="/"
+            to="/info"
             style={{ width: "100px", padding: "10px 20px" }}
             className="nav-item nav-btn res-nav"
           >
             About
           </Link>
           <Link
-            to="/"
+            to="/checkout"
             style={{ width: "100px", padding: "10px 20px" }}
             className="nav-item nav-btn res-nav"
           >

@@ -10,6 +10,7 @@ export const askQuestion = (questionData, navigate) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+  
 };
 
 // redux thunk ke wajah se itna lamba line hogaya nichewala

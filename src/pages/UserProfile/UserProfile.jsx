@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LeftSidebar from "../../components/LeftSidebar/LeftSidebar";
 import Avatar from "../../components/Avatar/Avatar";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBirthdayCake, faPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBirthdayCake,
+  faPen,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import EditProfileForm from "./EditProfileForm";
 import ProfileBio from "./ProfileBio";
@@ -13,8 +17,11 @@ import "./UserProfile.css";
 const UserProfile = ({ slideIn, handleSlideIn }) => {
   const users = useSelector((state) => state.usersReducer);
   const { id } = useParams();
-  const currentProfile = users?.filter((user) => user._id === id)[0];
+  let currentProfile = users?.filter((user) => user._id === id)[0];
   const currentUser = useSelector((state) => state.currentUserReducer);
+
+  // console.log("CurrentProfile", currentProfile);
+  // console.log("CurrentUser", currentUser);
 
   const [Switch, setSwitch] = useState(false);
 
@@ -35,14 +42,26 @@ const UserProfile = ({ slideIn, handleSlideIn }) => {
                 {currentProfile?.name?.charAt(0).toUpperCase()}
               </Avatar>
               <div className="user-name">
-                <h1>{currentProfile?.name}</h1>
+                <h1>
+                  {currentProfile?.name}{" "}
+                  <span
+                    title="badge/rank"
+                    style={{ fontSize: "30px", color: "gray" }}
+                  >
+                    <i> - {currentProfile?.badge}</i>
+                  </span>
+                </h1>
                 <p>
                   <FontAwesomeIcon icon={faBirthdayCake} /> Joined{" "}
                   {moment(currentProfile?.joinedOn).fromNow()}
                 </p>
+                <h2>
+                  <FontAwesomeIcon icon={faStar} />{" "}
+                  <i title="score">{currentProfile?.score}</i>
+                </h2>
               </div>
             </div>
-            {currentUser?.result?._id === id&& (
+            {currentUser?.result?._id === id && (
               <button
                 type="button"
                 onClick={() => setSwitch(true)}

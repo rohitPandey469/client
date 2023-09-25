@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Auth.css";
 import icon from "../../assets/icon.png";
 import AboutAuth from "./AboutAuth";
-import { signup, login } from "../../actions/auth";
+import { signup, sentOtp } from "../../actions/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -21,16 +21,22 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email && !password) {
-      alert("Enter email and password");
+    if (!email) {
+      alert("Enter email");
     }
     if (isSignUp) {
       if (!name) {
         alert("Enter a name to continue");
       }
+      if(!password){
+        alert("Enter a password to continue")
+      }
       dispatch(signup({ name, email, password }, navigate));
     } else {
-      dispatch(login({ email, password }, navigate));
+      const data = {
+        email: email,
+      };
+      dispatch(sentOtp(data, navigate));
     }
   };
 
@@ -46,6 +52,9 @@ const Auth = () => {
             <label htmlFor="name">
               <h4>Display Name</h4>
               <input
+              style={{
+                width:"100%"
+              }}
                 type="text"
                 id="name"
                 name="name"
@@ -58,6 +67,9 @@ const Auth = () => {
           <label htmlFor="email">
             <h4>Email</h4>
             <input
+            style={{
+              width:"100%"
+            }}
               type="email"
               name="email"
               id="email"
@@ -66,7 +78,7 @@ const Auth = () => {
               autoComplete="off"
             />
           </label>
-          <label htmlFor="password">
+          {isSignUp &&(<label htmlFor="password">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h4>Password</h4>
 
@@ -77,13 +89,16 @@ const Auth = () => {
               )}
             </div>
             <input
+            style={{
+              width:"100%"
+            }}
               type="password"
               name="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </label>
+          </label>)}
           {isSignUp && (
             <p style={{ color: "#666767", fontSize: "13px" }}>
               Password must contain at least eight

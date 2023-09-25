@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://stack-over-api.onrender.com" });
+// https://stack-over-api.onrender.com
+
+const API = axios.create({ baseURL: "http://localhost:5000" });
 
 // with each req from the frontend we are intercepting it
 // modifying the headers
@@ -15,8 +17,19 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+// similar to postman - sending req in same format as postman
+export const textQuery = (text) => API.post("/api/dialogflow/textQuery", text);
+export const eventQuery = (event) =>
+  API.post("/api/dialogflow/eventQuery", event);
+
+// auth
 export const logIn = (authData) => API.post("/user/login", authData); // similar to postman
+export const sentOtp = async (data) => API.post("/user/sendOtp", data);
 export const signUp = (authData) => API.post("/user/signup", authData); // sending request here
+
+// payment
+export const makePayment = async (data) =>
+  API.post("/api/create-checkout-session", data);
 
 export const postQuestion = (questionData) =>
   API.post("/questions/ask", questionData);

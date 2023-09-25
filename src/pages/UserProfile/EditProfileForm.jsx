@@ -23,7 +23,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
       <h1 className="edit-profile-title">Edit Your Profile</h1>
       <h2 className="edit-profile-title-2">Public information</h2>
       <form className="edit-profile-form" onSubmit={handleSubmit}>
-        <label htmlFor="name">
+        <label style={{display:"block"}} htmlFor="name">
           <h3>Display name</h3>
           <input
             type="text"
@@ -31,7 +31,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <label htmlFor="about">
+        <label style={{display:"block"}} htmlFor="about">
           <h3>About me</h3>
           <textarea
             id="about"
@@ -41,7 +41,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
             onChange={(e) => setAbout(e.target.value)}
           ></textarea>
         </label>
-        <label htmlFor="tags">
+        <label style={{display:"block"}} htmlFor="tags">
           <h3>Watched tags</h3>
           <p>Add tags separated by 1 space</p>
           <input

@@ -13,5 +13,8 @@
   padding: 24px;
   box-sizing: border-box;
 }
-
-@media screen and (max-width: 760px) {}
+@media screen and (max-width: 760px) {
+  .question-details-page {
+    width:100%;
+  }
+}

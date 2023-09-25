@@ -2,6 +2,7 @@
 import * as api from "../api";
 import { setCurrentUser } from "./currentUser";
 
+// register
 export const signup = (authData, navigate) => async (dispatch) => {
   try {
     const { data } = await api.signUp(authData);
@@ -15,6 +16,27 @@ export const signup = (authData, navigate) => async (dispatch) => {
   }
 };
 
+// sending the email here
+export const sentOtp = (emailData, navigate) => async (dispatch) => {
+  try {
+    // console.log("Email DATA", emailData);
+    const response = await api.sentOtp(emailData);
+    if (response.status === 200) {
+      // setSpinner(false);
+      // toast("OTP sent successfully!");
+      navigate("/user/otp", { state: emailData.email });
+    }
+  } catch (error) {
+    // setSpinner(false);
+    // toast.error("Email not registered!");
+    setTimeout(() => {
+      return navigate("/Auth");
+    }, 5000);
+    console.log(error);
+  }
+};
+
+// sending the email and otp both
 export const login = (authData, navigate) => async (dispatch) => {
   try {
     const { data } = await api.logIn(authData);

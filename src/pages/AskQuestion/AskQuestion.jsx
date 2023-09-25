@@ -12,7 +12,7 @@ const AskQuestion = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const User = useSelector((state) => state.currentUserReducer); // need this line to pass user info to backend
+  const User = useSelector((state) => state.currentUserReducer); // need this line to get the info from redux toolkit
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const AskQuestion = () => {
         <h1>Ask a public Question</h1>
         <form onSubmit={handleSubmit}>
           <div className="ask-form-container">
-            <label htmlFor="ask-ques-title">
+            <label style={{display:"block"}} htmlFor="ask-ques-title">
               <h4>Title</h4>
               <p>
                 Be specific and imagine you're asking a question to another
@@ -58,7 +58,7 @@ const AskQuestion = () => {
                 autoComplete="off"
               />
             </label>
-            <label htmlFor="ask-ques-body">
+            <label style={{display:"block"}} htmlFor="ask-ques-body">
               <h4>Body</h4>
               <p>
                 Include all the information someone would need to answer your

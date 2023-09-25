@@ -42,7 +42,12 @@ const QuestionDetails = () => {
   //   },
   // ];
 
-  const User = useSelector((state) => state.currentUserReducer);
+  var User = useSelector((state) => state.currentUserReducer);
+  useEffect(()=>{
+    if(User===null){
+      navigate("/Auth")
+    }
+  },[User])
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -107,14 +112,14 @@ const QuestionDetails = () => {
                         src={upvote}
                         alt="upvote"
                         width="18"
-                        onClick={handleUpVote}
+                        onClick={()=>handleUpVote()}
                       />
                       <p>{question.upVote.length - question.downVote.length}</p>
                       <img
                         src={downvote}
                         alt="downvote"
                         width="18"
-                        onClick={handleDownVote}
+                        onClick={()=>handleDownVote()}
                       />
                     </div>
                     <div style={{ width: "100%" }}>
@@ -126,9 +131,9 @@ const QuestionDetails = () => {
                       </div>
                       <div className="question-actions-user">
                         <div>
-                          <button onClick={handleShare}>Share</button>
+                          <button onClick={()=>handleShare()}>Share</button>
                           {User?.result?._id === question?.userId && (
-                            <button onClick={handleDelete}>Delete</button>
+                            <button onClick={()=>handleDelete()}>Delete</button>
                           )}
                         </div>
                         <div>

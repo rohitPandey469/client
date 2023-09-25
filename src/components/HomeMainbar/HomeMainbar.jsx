@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./HomeMainbar.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import QuestionList from "./QuestionList";
@@ -31,8 +31,14 @@ const HomeMainbar = () => {
   //     ],
   //   },
   // ];
-
   var User = useSelector((state) => state.currentUserReducer);
+
+  useEffect(() => {
+    if (User === null) {
+      navigate("/Auth");
+    }
+  }, [User]);
+
   const navigate = useNavigate();
 
   const checkAuth = () => {
