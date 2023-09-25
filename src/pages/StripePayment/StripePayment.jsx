@@ -81,7 +81,7 @@ function StripePayment() {
     };
 
     const response = await fetch(
-      "http://localhost:5000/api/create-checkout-session",
+      "https://stack-over-api.onrender.com/api/create-checkout-session",
       {
         method: "POST",
         headers: headers,

@@ -1,8 +1,9 @@
 import axios from "axios";
 
-// https://stack-over-api.onrender.com
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+// http://localhost:5000
+
+const API = axios.create({ baseURL: "https://stack-over-api.onrender.com" });
 
 // with each req from the frontend we are intercepting it
 // modifying the headers
